@@ -9,22 +9,22 @@ struct LazySegmentTree{
     void eval(int i,int l,int r){
         if(flag[i]){
             ch(k[i],lazy[i]);
-            flag[i]=false;
             if(l+1<r){
                 sy(lazy[2*i],lazy[i]);
                 sy(lazy[2*i+1],lazy[i]);
                 flag[2*i]=flag[2*i+1]=true;
             }
+            flag[i]=false;
+            lazy[i]=ef_id;
         }
     }
     void update(int a,int b,int i,int l,int r,E x){
         eval(i,l,r);
         if(r<=a||b<=l) return;
         if(a<=l&&r<=b){
-            ch(k[i],x);
-            if(flag[i]) sy(lazy[i],x);
-            else lazy[i]=x;
+            sy(lazy[i],x);
             flag[i]=true;
+            eval(i,l,r);
         }
         else{
             update(a,b,i*2,l,(l+r)/2,x);
@@ -46,10 +46,13 @@ struct LazySegmentTree{
     T query(int a, int b) {
         return query(a,b,1,0,n);
     }
-    LazySegmentTree(int m){
+    LazySegmentTree(vector<T> a){
+        int m=a.size();
         while(n<m) n*=2;
-        k=vector<T>(n*4,op_id);
-        lazy=vector<E>(n*4,ef_id);
-        flag=vector<bool>(n*4,false);
+        k=vector<T>(n*2,op_id);
+        lazy=vector<E>(n*2,ef_id);
+        flag=vector<bool>(n*2,false);
+        rep(i,m) k[n+i]=a[i];
+        for(int i=n-1;0<i;i--) k[i]=op(k[i*2],k[i*2+1]);
     }
 };
