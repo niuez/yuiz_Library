@@ -1,10 +1,10 @@
 struct SCC{
     private:
     int n;
-    vector<V> e,er;
+    vector<vector<ll>> e,er;
     stack<int> st;
     vector<bool> seen;
-    V list;
+    vector<ll> list;
 
     public:
 
@@ -14,23 +14,23 @@ struct SCC{
     }
 
     void dfs1(int f){
-        seen[f]=true;
-        for(int t:e[f]) if(seen[t]==false){
-            seen[t]=true;
+        seen[f] = true;
+        for(int t : e[f]) if(seen[t]==false){
+            seen[t] = true;
             dfs1(t);
         }
         st.push(f);
     }
 
     void dfs2(int root,int f){
-        list[f]=root;
-        for(int t:er[f]) if(list[t]==-1) dfs2(root,t);
+        list[f] = root;
+        for(int t : er[f]) if(list[t]==-1) dfs2(root,t);
     }
 
-    V solve(){
+    vector<ll> solve(){
         rep(i,n) if(seen[i]==false) dfs1(i);
         while(st.size()){
-            int f=st.top();
+            int f = st.top();
             if(list[f]==-1) dfs2(f,f);
             st.pop();
         }
@@ -38,10 +38,10 @@ struct SCC{
     }
 
     SCC(int n){
-        this->n=n;
-        e=er=vector<V>(n);
-        seen=vector<bool>(n,false);
-        list=V(n,-1);
+        this->n = n;
+        e = er = vector<vector<ll>>(n);
+        seen = vector<bool>(n,false);
+        list = vector<ll>(n,-1);
     }
 
 };

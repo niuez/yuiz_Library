@@ -11,16 +11,16 @@ template<ll mod> struct rolling_hash{
     }
     rolling_hash(){}
     rolling_hash(string t,char c,int s){
-        this->n=t.size();
-        this->s=s;
-        this->h=vector<modint<mod>>(n+5);
+        this->n = t.size();
+        this->s = s;
+        this->h = vector<modint<mod>>(n+5);
         pw=vector<modint<mod>>(n+5);
         REP(i,n){
-            h[i]=(h[i]+t[i-1]-c);
-            h[i+1]=h[i]*s;
+            h[i] = (h[i]+t[i-1]-c);
+            h[i+1] = h[i]*s;
         }
-        pw[0]=1;
-        REP(i,n) pw[i]=pw[i-1]*s;
+        pw[0] = 1;
+        REP(i,n) pw[i] = pw[i-1]*s;
     }
 };
 
@@ -33,7 +33,7 @@ struct d_rolhash{
         return (h1.match_hash(a,b,c,d)&&h2.match_hash(a,b,c,d));
     }
     d_rolhash(string t,char c,int s){
-        this->h1=rolling_hash<998244353>(t,c,s);
-        this->h2=rolling_hash<1000000007>(t,c,s);
+        this->h1 = rolling_hash<998244353>(t,c,s);
+        this->h2 = rolling_hash<1000000007>(t,c,s);
     }
 };

@@ -4,14 +4,14 @@ struct UnionFind{
     public:
     int root(int i){
         if(k[i]<0) return i;
-        else return k[i]=root(k[i]);
+        else return k[i] = root(k[i]);
     }
     void unite(int i,int j){
-        i=root(i); j=root(j);
+        i = root(i); j = root(j);
         if(i==j) return;
         if(size(i)<size(j)) swap(i,j);
-        k[i]+=k[j];
-        k[j]=i;
+        k[i] += k[j];
+        k[j] = i;
         return;
     }
     bool connected(int x,int y){
